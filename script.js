@@ -102,13 +102,14 @@ const icons = [
 
 const iconContainer = document.getElementById("my_icons_container");
 
-printElements(icons,iconContainer);
-
-
 // Milestone 2
 // Coloriamo le icone per tipo
 
-randomColorTypeGenerator(icons,"type")
+const typesColorsArray = randomColorsTypeGenerator(icons,"type")
+
+iconsColorAdder(icons,typesColorsArray)
+
+printElements(icons,iconContainer);
 
 
 // Milestone 3
@@ -119,15 +120,16 @@ randomColorTypeGenerator(icons,"type")
 // FUNCTIONS 
 function printElements(array,container) {
 	array.forEach((element) => {
-		const {name,prefix,family} = element;
+		const {name,prefix,family,color} = element;
 		container.innerHTML += `<div class="col-3">
-		<i class="${family} ${prefix}${name}">
+		<i class="${family} ${prefix}${name}" style="color:${color}">
 		<h4>${name}</h4>
 		</div>`
 	})
 }
 
-function randomColorTypeGenerator(array,property) {
+
+function randomColorsTypeGenerator(array,property) {
 	const typesArray = [];
 
 	array.forEach((element) => {
@@ -136,7 +138,7 @@ function randomColorTypeGenerator(array,property) {
 		if (index == -1) {
 			typesArray.push({
 				type: element[property], 
-				color: (Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'))
+				color: "#" + (Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'))
 			})
 		} 
 	})
@@ -144,5 +146,12 @@ function randomColorTypeGenerator(array,property) {
 }
 
 
-
-
+function iconsColorAdder(array1,array2) {
+	array1.forEach((element1) => {
+		array2.forEach((element2) => {
+			if (element1.type == element2.type) {
+				element1.color = element2.color
+			}
+		})
+	})
+}
