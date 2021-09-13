@@ -96,3 +96,53 @@ const icons = [
 		family: 'fas'
 	}
 ];
+
+// Milestone 1
+// Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout.
+
+const iconContainer = document.getElementById("my_icons_container");
+
+printElements(icons,iconContainer);
+
+
+// Milestone 2
+// Coloriamo le icone per tipo
+
+randomColorTypeGenerator(icons,"type")
+
+
+// Milestone 3
+// Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+
+
+
+// FUNCTIONS 
+function printElements(array,container) {
+	array.forEach((element) => {
+		const {name,prefix,family} = element;
+		container.innerHTML += `<div class="col-3">
+		<i class="${family} ${prefix}${name}">
+		<h4>${name}</h4>
+		</div>`
+	})
+}
+
+function randomColorTypeGenerator(array,property) {
+	const typesArray = [];
+
+	array.forEach((element) => {
+		const {type} = element;
+		const index = typesArray.findIndex(element => element["type"] == type)
+		if (index == -1) {
+			typesArray.push({
+				type: element[property], 
+				color: (Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'))
+			})
+		} 
+	})
+	return typesArray;
+}
+
+
+
+
